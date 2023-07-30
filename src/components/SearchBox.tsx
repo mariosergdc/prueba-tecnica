@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FaSearch, FaWindowClose } from "react-icons/fa";
 import { User } from "../interfaces";
 const SearchBox = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -15,6 +16,10 @@ const SearchBox = () => {
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value);
   };
+
+  const handleClose = () => {
+    setFilter("");
+  };
   const usersFiltred = users.filter(
     (u) =>
       u.name.first.toLocaleLowerCase().includes(filter) ||
@@ -25,7 +30,13 @@ const SearchBox = () => {
     <div>
       Serarch Box
       <header>
-        <input type="text" onChange={handleFilterChange} />
+        <div className="search-container">
+          <input type="text" onChange={handleFilterChange} value={filter} />
+          {!filter && <FaSearch className="fa-search" />}
+          {filter && (
+            <FaWindowClose className="fa-window-close" onClick={handleClose} />
+          )}
+        </div>
       </header>
       <main>
         <h1>List Of Users</h1>
