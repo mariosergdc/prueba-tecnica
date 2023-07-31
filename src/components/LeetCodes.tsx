@@ -18,6 +18,10 @@ const LeetCodes = () => {
 
   console.log(numberOfEmployeesWhoMetTarget([0, 1, 2, 3, 4], 2));
 
+  const duplicate = (arr: number[]) => {
+    return arr.concat(arr);
+  };
+  console.log(duplicate([1, 2, 3, 4]));
   return <div></div>;
 };
 
