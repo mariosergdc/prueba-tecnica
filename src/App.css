@@ -66,3 +66,7 @@
   border-radius: 5rem;
   border-style: solid;
 }
+
+.strong-class {
+  font-size: 2rem;
+}

@@ -22,8 +22,8 @@ const SearchBox = () => {
   };
   const usersFiltred = users.filter(
     (u) =>
-      u.name.first.toLocaleLowerCase().includes(filter) ||
-      u.name.last.toLocaleLowerCase().includes(filter)
+      u.name.first.toLocaleLowerCase().includes(filter.toLocaleLowerCase()) ||
+      u.name.last.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
   );
 
   return (
@@ -44,9 +44,16 @@ const SearchBox = () => {
         {usersFiltred.length === 0 && <h3>No matches</h3>}
 
         {usersFiltred.map((u) => {
+          const str = `${u.name.first} ${u.name.last}`;
+          const regexp = RegExp(filter, "gi");
+          const strongName = str.replace(
+            regexp,
+            (match) => `<strong class="strong-class">${match}</strong>`
+          );
+
           return (
             <div key={u.login.uuid}>
-              {u.name.first} {u.name.last}
+              <div dangerouslySetInnerHTML={{ __html: strongName }} />
             </div>
           );
         })}
