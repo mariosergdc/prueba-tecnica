@@ -83,7 +83,102 @@ const LeetCodes = () => {
     }
   };
 
-  wall(5, 2);
+  // wall(5, 2);
+
+  /**
+   * @param {number} celsius
+   * @return {number[]}
+   */
+  let convertTemperature = function (celsius) {
+    let ans = [];
+    ans[0] = celsius + 273.15;
+    ans[1] = celsius * 1.8 + 32.0;
+  };
+
+  //console.log(convertTemperature(36.5));
+
+  /**
+   * Definition for singly-linked list.
+   * function ListNode(val, next) {
+   *     this.val = (val===undefined ? 0 : val)
+   *     this.next = (next===undefined ? null : next)
+   * }
+   */
+  /**
+   * @param {ListNode} l1
+   * @param {ListNode} l2
+   * @return {ListNode}
+   */
+  let addTwoNumbers = function (l1, l2) {
+    let list1 = l1;
+    let list2 = l2;
+    let list3 = new ListNode();
+    let actualNode = list3;
+    let lastNode = new ListNode();
+    let rest = 0;
+    while (list1 != null && list2 != null) {
+      let newNode = new ListNode();
+      let val = list1?.val + list2?.val + rest;
+      if (val >= 10) {
+        actualNode.val = val - 10;
+        rest = 1;
+      } else {
+        actualNode.val = val;
+        rest = 0;
+      }
+      actualNode.next = newNode;
+      lastNode = actualNode;
+      actualNode = newNode;
+      list1 = list1?.next;
+      list2 = list2?.next;
+    }
+
+    if (list1 === null) {
+      while (list2 !== null) {
+        let newNode = new ListNode();
+        let val = list2?.val + rest;
+        if (val >= 10) {
+          actualNode.val = val - 10;
+          rest = 1;
+        } else {
+          actualNode.val = val;
+          rest = 0;
+        }
+        actualNode.next = newNode;
+        lastNode = actualNode;
+        actualNode = newNode;
+
+        list2 = list2?.next;
+      }
+    } else if (list2 === null) {
+      while (list1 !== null) {
+        let newNode = new ListNode();
+        let val = list1?.val + rest;
+        if (val >= 10) {
+          actualNode.val = val - 10;
+          rest = 1;
+        } else {
+          actualNode.val = val;
+          rest = 0;
+        }
+
+        actualNode.next = newNode;
+        lastNode = actualNode;
+        actualNode = newNode;
+
+        list1 = list1?.next;
+      }
+    }
+
+    if (rest === 1) {
+      actualNode.val = 1;
+      actualNode.next = null;
+    } else {
+      lastNode.next = null;
+    }
+
+    return list3;
+  };
 
   return <div></div>;
 };
