@@ -70,3 +70,24 @@
 .strong-class {
   font-size: 2rem;
 }
+
+.book {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px red;
+}
+
+.book-img-container {
+  height: 150px;
+  width: 130px;
+  background-color: #333;
+  padding: 0.2rem;
+}
+
+.book div img {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+}
