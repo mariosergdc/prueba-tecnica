@@ -1,15 +1,15 @@
 import Book from "./Book";
 
-const BooksList = ({ books, addToReadingList }) => {
+const ReadingList = ({ booksToRead, removeFromReadingList }) => {
   return (
     <div>
       <h1>Lista de Libros</h1>
       <div className="book-list">
-        {books.map((el) => {
+        {booksToRead?.map((el) => {
           return (
             <div key={el.book.ISBN}>
-              <button onClick={() => addToReadingList(el.book.ISBN)}>
-                Add to Reading List
+              <button onClick={() => removeFromReadingList(el.book.ISBN)}>
+                x
               </button>
               <Book book={el.book} />
             </div>
@@ -20,4 +20,4 @@ const BooksList = ({ books, addToReadingList }) => {
   );
 };
 
-export default BooksList;
+export default ReadingList;

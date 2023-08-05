@@ -6,8 +6,14 @@ import SearchBox from "./components/SearchBox";
 function App() {
   return (
     <>
-      <div>App</div>
       <PruebaTecinica2 />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <SearchBox />
       <LeetCodes />
     </>

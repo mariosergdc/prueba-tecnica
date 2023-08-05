@@ -76,7 +76,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: solid 1px red;
+  width: 200px;
 }
 
 .book-img-container {
@@ -90,4 +90,10 @@
   height: 100%;
   width: auto;
   object-fit: cover;
+}
+
+.book-list {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
