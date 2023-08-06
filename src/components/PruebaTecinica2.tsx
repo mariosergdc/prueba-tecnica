@@ -8,6 +8,7 @@ const initialState = db.library;
 const PruebaTecinica2 = () => {
   const [books, setBooks] = useState(initialState);
   const [booksToRead, setBooksToRead] = useState([]);
+  const [genreFilter, setGenreFilter] = useState("");
 
   const addToReadingList = (id) => {
     const bookToAdd = books.find((el) => {
@@ -34,11 +35,21 @@ const PruebaTecinica2 = () => {
     });
     setBooksToRead(bookFiltred);
   };
+
+  const handleGenreFilter = (e) => {
+    setGenreFilter(e.target.value);
+  };
+
   return (
     <>
       <div>Prueba Técinica 2</div>
 
-      <BooksList books={books} addToReadingList={addToReadingList} />
+      <BooksList
+        books={books}
+        addToReadingList={addToReadingList}
+        genreFilter={genreFilter}
+        handleGenreFilter={handleGenreFilter}
+      />
       <ReadingList
         booksToRead={booksToRead}
         removeFromReadingList={removeFromReadingList}

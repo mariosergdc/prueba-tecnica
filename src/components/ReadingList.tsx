@@ -4,6 +4,7 @@ const ReadingList = ({ booksToRead, removeFromReadingList }) => {
   return (
     <div>
       <h1>Lista de Libros</h1>
+      <div>Cantidad de Libros en Lista de lectura: {booksToRead.length}</div>
       <div className="book-list">
         {booksToRead?.map((el) => {
           return (
