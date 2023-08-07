@@ -180,6 +180,53 @@ const LeetCodes = () => {
     return list3;
   };
 
+  /**
+   * @param {number[]} nums1
+   * @param {number[]} nums2
+   * @return {number}
+   */
+  let findMedianSortedArrays = function (nums1, nums2) {
+    const len1 = nums1.length,
+      len2 = nums2.length;
+    const lenTotal = len1 + len2;
+    const res = [];
+    let i = 0,
+      j = 0,
+      n;
+    if (lenTotal % 2 === 0) {
+      n = lenTotal / 2;
+    } else {
+      n = (lenTotal + 1) / 2;
+    }
+    for (let x = 0; x <= n; x++) {
+      if (i < len1 && j < len2) {
+        // There are elements in nums1 and nums2
+        if (nums1[i] <= nums2[j]) {
+          res.push(nums1[i]);
+          i++;
+        } else {
+          res.push(nums2[j]);
+          j++;
+        }
+      } else {
+        // One of the arrays is exhausted
+        if (i >= len1) {
+          // If nums1 is exhausted
+          res.push(nums2[j]);
+          j++;
+        } else {
+          res.push(nums1[i]);
+          i++;
+        }
+      }
+    }
+    if (lenTotal % 2 === 0) {
+      return (res[n] + res[n - 1]) / 2;
+    } else {
+      return res[n - 1]; //formato
+    }
+  };
+
   return <div></div>;
 };
 
