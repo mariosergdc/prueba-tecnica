@@ -25,7 +25,35 @@ const PruebaTecinica2 = () => {
       setBooks(booksActual);
     } else {
       setBooksToRead([]);
+      setBooks(initialState);
     }
+  }, []);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const item = localStorage.getItem("booksToRead");
+      if (item) {
+        const readingList = JSON.parse(item);
+        setBooksToRead(readingList);
+
+        const readingListId = readingList.map((el) => el.book.ISBN);
+
+        const booksActual = [...books].filter(
+          (el) => !readingListId.includes(el.book.ISBN)
+        );
+
+        setBooks(booksActual);
+      } else {
+        setBooksToRead([]);
+        setBooks(initialState);
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   const addToReadingList = (id) => {
