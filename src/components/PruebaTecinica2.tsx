@@ -102,6 +102,7 @@ const PruebaTecinica2 = () => {
         setBooks(newList);
       } else {
         setBooksToRead(newList);
+        localStorage.setItem("booksToRead", JSON.stringify(newList));
       }
     } else {
       const sourceList = source.droppableId === "books" ? books : booksToRead;
@@ -111,8 +112,15 @@ const PruebaTecinica2 = () => {
       const newDestinationList = Array.from(destinationList);
       const [removed] = newSourceList.splice(source.index, 1);
       newDestinationList.splice(destination.index, 0, removed);
-      setBooks(newSourceList);
-      setBooksToRead(newDestinationList);
+      if (source.droppableId === "books") {
+        setBooks(newSourceList);
+        setBooksToRead(newDestinationList);
+        localStorage.setItem("booksToRead", JSON.stringify(newDestinationList));
+      } else {
+        setBooks(newDestinationList);
+        setBooksToRead(newSourceList);
+        localStorage.setItem("booksToRead", JSON.stringify(newSourceList));
+      }
     }
   };
 
@@ -133,12 +141,18 @@ const PruebaTecinica2 = () => {
             </div>
           )}
         </Droppable>
-        {/* <Droppable droppableId="read-books">
-          <ReadingList
-            booksToRead={booksToRead}
-            removeFromReadingList={removeFromReadingList}
-          />
-        </Droppable> */}
+
+        <Droppable droppableId="read-books">
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              <ReadingList
+                booksToRead={booksToRead}
+                removeFromReadingList={removeFromReadingList}
+              />
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
       </DragDropContext>
     </>
   );
