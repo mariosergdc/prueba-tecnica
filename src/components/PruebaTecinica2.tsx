@@ -89,6 +89,32 @@ const PruebaTecinica2 = () => {
     setGenreFilter(e.target.value);
   };
 
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return;
+    const { source, destination } = result;
+    if (source.droppableId === destination.droppableId) {
+      const list = source.droppableId === "books" ? books : booksToRead;
+      const newList = Array.from(list);
+      const [removed] = newList.splice(source.index, 1);
+      newList.splice(destination.index, 0, removed);
+      if (source.droppableId === "books") {
+        setBooks(newList);
+      } else {
+        setBooksToRead(newList);
+      }
+    } else {
+      const sourceList = source.droppableId === "books" ? books : booksToRead;
+      const destinationList =
+        destination.droppableId === "books" ? books : booksToRead;
+      const newSourceList = Array.from(sourceList);
+      const newDestinationList = Array.from(destinationList);
+      const [removed] = newSourceList.splice(source.index, 1);
+      newDestinationList.splice(destination.index, 0, removed);
+      setBooks(newSourceList);
+      setBooksToRead(newDestinationList);
+    }
+  };
+
   return (
     <>
       <div>Prueba Técinica 2</div>
