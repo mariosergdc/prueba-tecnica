@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import db from "../db/db.json";
 import BooksList from "./BooksList";
 import ReadingList from "./ReadingList";
@@ -118,19 +119,74 @@ const PruebaTecinica2 = () => {
   return (
     <>
       <div>Prueba Técinica 2</div>
-
-      <BooksList
-        books={books}
-        addToReadingList={addToReadingList}
-        genreFilter={genreFilter}
-        handleGenreFilter={handleGenreFilter}
-      />
-      <ReadingList
-        booksToRead={booksToRead}
-        removeFromReadingList={removeFromReadingList}
-      />
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="books">
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              <BooksList
+                books={books}
+                addToReadingList={addToReadingList}
+                genreFilter={genreFilter}
+                handleGenreFilter={handleGenreFilter}
+              />
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+        {/* <Droppable droppableId="read-books">
+          <ReadingList
+            booksToRead={booksToRead}
+            removeFromReadingList={removeFromReadingList}
+          />
+        </Droppable> */}
+      </DragDropContext>
     </>
   );
 };
 
 export default PruebaTecinica2;
+
+/*react beautiful dnd
+ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+<DragDropContext onDragEnd={handleOnDragEnd}>
+  <Droppable droppableId="books">
+    {(provided) => (
+      <ul {...provided.droppableProps} ref={provided.innerRef}>
+        {books.map((book, index) => (
+          <Draggable key={book.id} draggableId={book.id} index={index}>
+            {(provided) => (
+              <li
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                ref={provided.innerRef}
+              >
+                {book.title}
+              </li>
+            )}
+          </Draggable>
+        ))}
+        {provided.placeholder}
+      </ul>
+    )}
+  </Droppable>
+  <Droppable droppableId="read-books">
+    {(provided) => (
+      <ul {...provided.droppableProps} ref={provided.innerRef}>
+        {readBooks.map((book, index) => (
+          <Draggable key={book.id} draggableId={book.id} index={index}>
+            {(provided) => (
+              <li
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                ref={provided.innerRef}
+              >
+                {book.title}
+              </li>
+            )}
+          </Draggable>
+        ))}
+        {provided.placeholder}
+      </ul>
+    )}
+  </Droppable>
+</DragDropContext> */

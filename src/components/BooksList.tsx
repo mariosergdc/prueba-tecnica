@@ -1,4 +1,5 @@
 import Book from "./Book";
+import { Draggable } from "react-beautiful-dnd";
 
 const BooksList = ({
   books,
@@ -27,14 +28,26 @@ const BooksList = ({
         placeholder="Filter by Genre"
       />
       <div className="book-list">
-        {booksToShow.map((el) => {
+        {booksToShow.map((el, index) => {
           return (
-            <div key={el.book.ISBN}>
-              <button onClick={() => addToReadingList(el.book.ISBN)}>
-                Add to Reading List
-              </button>
-              <Book book={el.book} />
-            </div>
+            <Draggable
+              key={el.book.ISBN}
+              draggableId={el.book.ISBN}
+              index={index}
+            >
+              {(provided) => (
+                <div
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  ref={provided.innerRef}
+                >
+                  <button onClick={() => addToReadingList(el.book.ISBN)}>
+                    Add to Reading List
+                  </button>
+                  <Book book={el.book} />
+                </div>
+              )}
+            </Draggable>
           );
         })}
       </div>
