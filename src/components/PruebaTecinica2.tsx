@@ -127,33 +127,21 @@ const PruebaTecinica2 = () => {
   return (
     <>
       <div>Prueba Técinica 2</div>
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="books">
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              <BooksList
-                books={books}
-                addToReadingList={addToReadingList}
-                genreFilter={genreFilter}
-                handleGenreFilter={handleGenreFilter}
-              />
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
+      <div className="app-container">
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <BooksList
+            books={books}
+            addToReadingList={addToReadingList}
+            genreFilter={genreFilter}
+            handleGenreFilter={handleGenreFilter}
+          />
 
-        <Droppable droppableId="read-books">
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              <ReadingList
-                booksToRead={booksToRead}
-                removeFromReadingList={removeFromReadingList}
-              />
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+          <ReadingList
+            booksToRead={booksToRead}
+            removeFromReadingList={removeFromReadingList}
+          />
+        </DragDropContext>
+      </div>
     </>
   );
 };

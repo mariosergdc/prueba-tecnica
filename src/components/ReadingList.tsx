@@ -1,35 +1,48 @@
 import Book from "./Book";
-import { Draggable } from "react-beautiful-dnd";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 
 const ReadingList = ({ booksToRead, removeFromReadingList }) => {
   return (
-    <div>
+    <div className="right-side">
       <h1>Lista de Lectura</h1>
       <div>Cantidad de Libros en Lista de lectura: {booksToRead.length}</div>
-      <div className="book-list">
-        {booksToRead?.map((el, index) => {
-          return (
-            <Draggable
-              key={el.book.ISBN}
-              draggableId={el.book.ISBN}
-              index={index}
-            >
-              {(provided) => (
-                <div
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                  ref={provided.innerRef}
+      <Droppable droppableId="read-books">
+        {(provided) => (
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className="read-books"
+          >
+            {booksToRead?.map((el, index) => {
+              return (
+                <Draggable
+                  key={el.book.ISBN}
+                  draggableId={el.book.ISBN}
+                  index={index}
                 >
-                  <button onClick={() => removeFromReadingList(el.book.ISBN)}>
-                    x
-                  </button>
-                  <Book book={el.book} />
-                </div>
-              )}
-            </Draggable>
-          );
-        })}
-      </div>
+                  {(provided) => (
+                    <div
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      ref={provided.innerRef}
+                      className="book-container"
+                    >
+                      <button
+                        onClick={() => removeFromReadingList(el.book.ISBN)}
+                      >
+                        x
+                      </button>
+                      <Book book={el.book} />
+                    </div>
+                  )}
+                </Draggable>
+              );
+            })}
+
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
     </div>
   );
 };

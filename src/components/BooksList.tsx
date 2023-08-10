@@ -1,5 +1,5 @@
 import Book from "./Book";
-import { Draggable } from "react-beautiful-dnd";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 
 const BooksList = ({
   books,
@@ -27,30 +27,42 @@ const BooksList = ({
         value={genreFilter}
         placeholder="Filter by Genre"
       />
-      <div className="book-list">
-        {booksToShow.map((el, index) => {
-          return (
-            <Draggable
-              key={el.book.ISBN}
-              draggableId={el.book.ISBN}
-              index={index}
-            >
-              {(provided) => (
-                <div
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                  ref={provided.innerRef}
-                >
-                  <button onClick={() => addToReadingList(el.book.ISBN)}>
-                    Add to Reading List
-                  </button>
-                  <Book book={el.book} />
-                </div>
-              )}
-            </Draggable>
-          );
-        })}
-      </div>
+
+      <Droppable droppableId="books">
+        {(provided) => (
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className="left-side"
+          >
+            <div className="book-list">
+              {booksToShow.map((el, index) => {
+                return (
+                  <Draggable
+                    key={el.book.ISBN}
+                    draggableId={el.book.ISBN}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <div
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                      >
+                        <Book book={el.book} />
+                        <button onClick={() => addToReadingList(el.book.ISBN)}>
+                          Add to Reading List
+                        </button>
+                      </div>
+                    )}
+                  </Draggable>
+                );
+              })}
+            </div>
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
     </div>
   );
 };
