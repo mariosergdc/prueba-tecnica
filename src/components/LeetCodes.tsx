@@ -226,6 +226,23 @@ const LeetCodes = () => {
       return res[n - 1]; //formato
     }
   };
+  /**
+   * @param {number[]} nums
+   * @param {number} target
+   * @return {number[]}
+   */
+  let twoSum = function (nums, target) {
+    for (let i = 0; i < nums.length - 1; i++) {
+      for (let j = i + 1; j < nums.length; j++) {
+        if (nums[i] + nums[j] === target) {
+          let arr = new Array(2);
+          arr[0] = i;
+          arr[1] = j;
+          return arr;
+        }
+      }
+    }
+  };
 
   return <div></div>;
 };

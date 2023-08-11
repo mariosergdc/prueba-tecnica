@@ -114,12 +114,13 @@
 
 .read-books {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   flex-wrap: wrap;
   border: white dashed 2px;
   margin: 1rem;
   padding: 0.5rem;
+  padding-top: 2rem;
 }
 
 .book-container {
